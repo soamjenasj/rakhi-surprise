@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Behold, Your Handsome Brother 😎 | Happy Raksha Bandhan</title>
+<meta name="description" content="A ridiculous, roast-filled, secretly heartfelt Raksha Bandhan experience." />
+
+<!-- Fonts: Fraunces (warm, quirky display serif) + Manrope (clean geometric body) + Caveat (handwritten sibling notes) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600;1,9..144,700&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ================= AMBIENT BACKGROUND LAYER ================= -->
+  <div class="ambient" aria-hidden="true">
+    <div class="thread-line" id="threadLine"></div>
+    <div class="glow glow--one"></div>
+    <div class="glow glow--two"></div>
+    <div class="glow glow--three"></div>
+    <div class="floaters" id="floaters"></div>
+  </div>
+
+  <!-- Canvas for confetti bursts -->
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <!-- ================= PROGRESS THREAD (mauli) ================= -->
+  <div class="mauli-progress" id="mauliProgress" aria-hidden="true">
+    <svg viewBox="0 0 40 400" preserveAspectRatio="none">
+      <path id="mauliTrack" d="M20,0 C 5,60 35,120 20,180 C 5,240 35,300 20,400" />
+      <path id="mauliFill" d="M20,0 C 5,60 35,120 20,180 C 5,240 35,300 20,400" />
+    </svg>
+  </div>
+
+  <main id="app">
+
+    <!-- ============================================================
+         SCENE 1 — LANDING
+    ============================================================ -->
+    <section class="scene scene--landing is-active" id="scene-landing" data-scene="landing">
+      <div class="scene__inner landing__inner">
+        <p class="eyebrow eyebrow--gold">A LIMITED-EDITION SIBLING EXPERIENCE</p>
+
+        <div class="portrait-frame">
+          <div class="portrait-ring"></div>
+          <img src="assets/brother.jpg" alt="Your extremely handsome brother, on his bike, looking back like it's a magazine cover" class="portrait-img" />
+          <span class="badge-tag">100% Unfiltered</span>
+        </div>
+
+        <h1 class="display-h1">
+          BEHOLD<span class="ellipsis">…</span><br/>
+          <span class="text-gold">YOUR HANDSOME BROTHER</span> <span class="wobble">😎</span>
+        </h1>
+
+        <p class="hand-note">Yes, I know. You got the best brother in the family.</p>
+        <p class="fine-print">Unfortunately, returns and replacements are not available.</p>
+
+        <button class="btn btn--primary btn--enter" id="enterBtn">
+          <span>ENTER AT YOUR OWN RISK</span>
+          <span aria-hidden="true">😂</span>
+        </button>
+
+        <p class="scroll-hint">tap to continue, there is no escape</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCENE 2 — BROTHER INTRODUCTION
+    ============================================================ -->
+    <section class="scene scene--intro" id="scene-intro" data-scene="intro">
+      <div class="scene__inner">
+        <p class="eyebrow">OFFICIAL ANNOUNCEMENT</p>
+        <h2 class="display-h2">Congratulations! <span aria-hidden="true">🎉</span></h2>
+        <p class="lede">
+          You have officially been blessed with the world's most handsome,
+          intelligent and humble brother.
+        </p>
+        <p class="hand-note hand-note--flip">Okay fine… maybe I exaggerated the humble part.</p>
+
+        <div class="stat-grid" id="statGrid">
+          <!-- populated by JS for staggered animation -->
+        </div>
+
+        <button class="btn btn--secondary next-btn" data-next="wishes">
+          What does this brother owe me? <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCENE 3 — WISH SELECTION
+    ============================================================ -->
+    <section class="scene scene--wishes" id="scene-wishes" data-scene="wishes">
+      <div class="scene__inner">
+        <p class="eyebrow eyebrow--gold">STEP 1 OF 1 (allegedly)</p>
+        <h2 class="display-h2 display-h2--crown">
+          SO… WHAT DO YOU WANT<br/>FROM YOUR HANDSOME BROTHER? <span aria-hidden="true">👑</span>
+        </h2>
+        <p class="lede">Choose wisely. This form is legally non-binding.</p>
+
+        <div class="wish-grid" id="wishGrid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCENE 4 — REACTION
+    ============================================================ -->
+    <section class="scene scene--reaction" id="scene-reaction" data-scene="reaction">
+      <div class="scene__inner">
+        <div class="reaction-stage" id="reactionStage">
+          <!-- populated by JS: illustrated SVG reaction + text -->
+        </div>
+        <button class="btn btn--secondary next-btn" data-next="processing">
+          See the official verdict <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCENE 5 — FAKE APPROVAL SYSTEM
+    ============================================================ -->
+    <section class="scene scene--processing" id="scene-processing" data-scene="processing">
+      <div class="scene__inner">
+        <div class="terminal">
+          <div class="terminal__bar">
+            <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+            <span class="terminal__title">brother_request_processor.exe</span>
+          </div>
+          <div class="terminal__body">
+            <h2 class="terminal__heading">BROTHER REQUEST PROCESSING<span class="blink">…</span></h2>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <ul class="steps" id="stepsList"></ul>
+
+            <div class="verdict" id="verdict">
+              <div class="stamp" id="stamp">DENIED</div>
+              <p class="verdict__reason">
+                Reason: You are asking too much from a brother who is already
+                handsome for free.
+              </p>
+              <button class="btn btn--primary next-btn" data-next="heartfelt">
+                Fine, be sincere then <span aria-hidden="true">❤️</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCENE 6 — HEARTFELT MOMENT
+    ============================================================ -->
+    <section class="scene scene--heartfelt" id="scene-heartfelt" data-scene="heartfelt">
+      <div class="scene__inner">
+        <div class="rakhi-mark" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="rakhi-svg">
+            <circle cx="60" cy="60" r="46" class="rakhi-ring rakhi-ring--outer"/>
+            <circle cx="60" cy="60" r="30" class="rakhi-ring rakhi-ring--inner"/>
+            <g class="rakhi-petals">
+              <circle cx="60" cy="14" r="7"/>
+              <circle cx="60" cy="106" r="7"/>
+              <circle cx="14" cy="60" r="7"/>
+              <circle cx="106" cy="60" r="7"/>
+              <circle cx="28" cy="28" r="6"/>
+              <circle cx="92" cy="28" r="6"/>
+              <circle cx="28" cy="92" r="6"/>
+              <circle cx="92" cy="92" r="6"/>
+            </g>
+            <circle cx="60" cy="60" r="10" class="rakhi-center"/>
+          </svg>
+        </div>
+
+        <p class="eyebrow eyebrow--gold">TAKE TWO</p>
+        <h2 class="display-h2 display-h2--serif">Okay… Enough Roasting <span aria-hidden="true">❤️</span></h2>
+
+        <div class="heartfelt-text">
+          <p>Jokes apart, I may annoy you, roast you, fight with you and act like
+            I don't care sometimes… but having you as my sister is genuinely one
+            of the best things in my life.</p>
+          <p>You deserve all the happiness, success and love in the world.</p>
+          <p>No matter how much we fight or how much I tease you, I'll always be
+            there for you.</p>
+          <p class="heartfelt-text--emph">And yes… you are stuck with this handsome
+            brother for life. <span aria-hidden="true">😂❤️</span></p>
+        </div>
+
+        <h3 class="signoff">Happy Raksha Bandhan, Sis! <span aria-hidden="true">❤️🪢</span></h3>
+        <p class="hand-note hand-note--gold">You're lucky to have me. I'm luckier to have you.</p>
+
+        <button class="btn btn--primary btn--last" id="lastThingBtn">
+          <span>ONE LAST THING</span> <span aria-hidden="true">👀</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCENE 7 — FINAL SURPRISE (revealed via overlay)
+    ============================================================ -->
+    <div class="overlay" id="finalOverlay" aria-hidden="true">
+      <div class="overlay__panel">
+        <button class="overlay__close" id="closeOverlay" aria-label="Close">✕</button>
+        <div class="rakhi-mark rakhi-mark--big" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="rakhi-svg">
+            <circle cx="60" cy="60" r="46" class="rakhi-ring rakhi-ring--outer"/>
+            <circle cx="60" cy="60" r="30" class="rakhi-ring rakhi-ring--inner"/>
+            <g class="rakhi-petals">
+              <circle cx="60" cy="14" r="7"/>
+              <circle cx="60" cy="106" r="7"/>
+              <circle cx="14" cy="60" r="7"/>
+              <circle cx="106" cy="60" r="7"/>
+              <circle cx="28" cy="28" r="6"/>
+              <circle cx="92" cy="28" r="6"/>
+              <circle cx="28" cy="92" r="6"/>
+              <circle cx="92" cy="92" r="6"/>
+            </g>
+            <circle cx="60" cy="60" r="10" class="rakhi-center"/>
+          </svg>
+        </div>
+        <p class="overlay__thanks">Thank you for being my sister <span aria-hidden="true">❤️</span></p>
+        <p class="overlay__and">And remember…</p>
+        <p class="overlay__promise">No matter how much I roast you, I'll always have your back.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
